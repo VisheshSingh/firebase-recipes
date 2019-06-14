@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Database (Firestore)</title>
+  </head>
+  <body>
+    <div class="container my-5">
+      <h2>Recipes</h2>
+      <ul>
+        <li>Mixed vegetable soup</li>
+        <li>Chicken Korma</li>
+      </ul>
+      <form class="input-group">
+        <label for="recipe">Add a new recipe:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="recipe" required />
+          <div class="input-group-append">
+            <input
+              type="submit"
+              value="add"
+              class="btn btn-outline-secondary"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: 'AIzaSyDLiAguxt6wwBqpFf_9aBtjhMELXEauLxc',
+        authDomain: 'udemy-ninja-firebase.firebaseapp.com',
+        databaseURL: 'https://udemy-ninja-firebase.firebaseio.com',
+        projectId: 'udemy-ninja-firebase',
+        storageBucket: 'udemy-ninja-firebase.appspot.com',
+        messagingSenderId: '951194917880',
+        appId: '1:951194917880:web:4ad2a134f1342e50'
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>
