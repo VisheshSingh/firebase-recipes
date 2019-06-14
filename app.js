@@ -1,5 +1,7 @@
 const list = document.querySelector('ul');
+const form = document.querySelector('form');
 
+// getting data from firestore
 const addRecipe = recipe => {
   const html = `
         <li>
@@ -19,3 +21,19 @@ db.collection('recipes')
     });
   })
   .catch(err => console.log(err.message));
+
+// saving record in firestore
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const now = new Date();
+
+  const recipe = {
+    title: form.recipe.value,
+    created_at: firebase.firestore.Timestamp.fromDate(now)
+  };
+
+  db.collection('recipes')
+    .add(recipe)
+    .then(() => console.log('recipe added!'))
+    .catch(err => console.log(rr.message));
+});
