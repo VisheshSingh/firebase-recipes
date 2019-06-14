@@ -1,7 +1,6 @@
 const list = document.querySelector('ul');
 const form = document.querySelector('form');
 
-// getting data from firestore
 const addRecipe = (recipe, id) => {
   const html = `
         <li data-id="${id}">
@@ -14,7 +13,8 @@ const addRecipe = (recipe, id) => {
   list.innerHTML += html;
 };
 
-db.collection('recipes')
+// getting data from firestore
+/* db.collection('recipes')
   .get()
   .then(docs => {
     docs.forEach(doc => {
@@ -22,7 +22,28 @@ db.collection('recipes')
     });
   })
   .catch(err => console.log(err.message));
+ */
 
+const deleteRecipe = id => {
+  const recipes = document.querySelectorAll('li');
+  recipes.forEach(recipe => {
+    if (recipe.getAttribute('data-id') === id) {
+      recipe.remove();
+    }
+  });
+};
+
+// realtime eventlisteners
+db.collection('recipes').onSnapshot(snapshot => {
+  snapshot.docChanges().forEach(change => {
+    const doc = change.doc;
+    if (change.type === 'added') {
+      addRecipe(doc.data(), doc.id);
+    } else if (change.type === 'removed') {
+      deleteRecipe(doc.id);
+    }
+  });
+});
 // saving record in firestore
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -36,7 +57,7 @@ form.addEventListener('submit', e => {
   db.collection('recipes')
     .add(recipe)
     .then(() => console.log('recipe added!'))
-    .catch(err => console.log(rr.message));
+    .catch(err => console.log(err.message));
 });
 
 // deleting a recipe from firestore
